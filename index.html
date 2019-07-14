@@ -1,0 +1,671 @@
+
+<!DOCTYPE html>
+<html>
+<style>
+
+header {
+    position: relative;
+    color: #fff;
+    z-index: 9999;
+
+    height:90px;
+    background-image: -ms-linear-gradient(top,#64a1d2 17%,#266092 100%);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…B3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=);
+    background: -webkit-gradient(linear,50% 0%,50% 100%,color-stop(17%,#64a1d2),color-stop(100%,#266092));
+    background: -moz-linear-gradient(top,#64a1d2 17%,#266092 100%);
+    background: -webkit-linear-gradient(top,#64a1d2 17%,#266092 100%);
+    background: linear-gradient(to bottom,#64a1d2 17%,#266092 100%);
+  }
+
+
+
+p#intro{
+  font-size: 14px;
+  font-family: Arial;
+  font-weight: normal;
+  color: #555;
+}
+
+#map {
+  width: 360px;
+  height: 360px;
+}
+  #map2 {
+  width: 360px;
+  height: 360px;
+}
+  #map3 {
+  width: 360px;
+  height:360px;
+}
+
+
+  #map4 {
+  width: 360px;
+  height: 360px;
+}
+
+  #map5 {
+  width: 360px;
+  height: 360px;
+}
+
+  #map6 {
+  width: 360px;
+  height: 360px;
+}
+
+img.displayed {
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+
+  }
+  table
+  {
+    table-layout:fixed;
+    width:800px;
+  }
+
+  table.center {
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+p
+{
+   font-size: 20px;
+   font-family: Arial;
+  font-weight:bold;
+    color: #555;
+}
+
+
+
+svg {
+  position: relative;
+}
+
+/*path {
+  fill: #000;
+  fill-opacity: .2;
+  stroke: #fff;
+  stroke-width: 3px;
+}*/
+
+path:hover {
+  fill: lightgrey;
+  fill-opacity: .7;
+}
+
+/*.fws {
+  fill:purple;
+  stroke: #fff;
+}*/
+
+</style>
+
+
+
+<header>
+
+<div id="logo-sitename">
+     <a id="home-page-logo_desktop" aria-hidden="true" href="/"
+title="Home" rel="home" id="logo"><img
+
+ class = "displayed" src="icons/logo.svg" style="height:50px;padding: 0px 0px 0px 5px" alt="Volpe the National Transportation Systems Center."></img></a>
+
+ </header>
+
+
+
+
+<head>
+	<title>Federal Lands Agency Regional Comparison Map</title>
+
+
+    <script src = "data/fs_region.js"></script>
+    <script src = "data/fws_region.js"></script>
+    <script src = "data/flh_test.js"></script>
+    <script src = "data/nps_region.js"></script>
+    <script src = "js/regionFinder.js"></script>
+    <script src = "data/states.js"></script>
+    <script src = "data/blm_region.js"></script>
+    <script src = "data/usace_region.js"></script>
+    <script src = "data/nps_offices.js"></script>
+    <script src = "data/usfs_offices.js"></script>
+    <script src = "data/fws_offices.js"></script>
+    <script src = "data/flh_offices.js"></script>
+    <script src = "data/usace_offices.js"></script>
+    <script src = "data/blm_offices.js"></script>
+
+    <link rel="stylesheet" href="leaflet/leaflet.css"
+     vers="1.0.3"></link>
+    <script src="leaflet/leaflet.js"
+     vers="1.0.3"></script>
+
+
+
+</head>
+<body>
+
+<p>
+<table class="center">
+    <tbody>
+    <tr>
+      <td colspan="2"><p id="intro">
+        <h3>By Ibrahim Izah</h3><br>
+          This webmap was developed to help its staff as well as partners work across agencies and understand the relevant regional context and contacts for collaborative, multi-agency work. . <b>Pan the map to see more U.S. states and territories.</b>
+        </p></td>
+    <tr>
+      <td><p><img src="icons/usfs.png" alt="USFS logo" style="float:left;width:42px;height:42px;padding: 0px 40px 10px 0px;"></p><p style="padding: 10px 0px 0px 0px;">U.S. Forest Service</p><p id="map" style="height:300px"></p></td>
+    <td><p><img src="icons/fws.png" alt="FWS logo" style="float:left;width:38px;height:42px;padding: 0px 30px 10px 0px;"></p><p style="padding: 10px 0px 0px 0px;">U.S. Fish and Wildlife Service</p><p id="map2" style="height:300px"></p></td>
+    </tr>
+    <tr>
+      <td><p><img src="icons/flh.png" alt="FLH logo" style="float:left;width:50px;height:42px;padding: 0px 2px 10px 0px;"></p><p style="padding: 10px 0px 0px 0px;">Office of Federal Lands Highway</p><p id="map3" style="height:300px"></p></td>
+      <td><p><img src="icons/nps.svg" alt="NPS logo" style="float:left;width:38px;height:42px;padding: 0px 40px 10px 0px;"></p><p style="padding: 10px 0px 0px 0px;">National Park Service</p><p id="map4" style="height:300px"></p></td>
+    </tr>
+      <tr>
+      <td><p><img src="icons/usace.png" alt="USACE logo" style="float:left;width:50px;height:42px;padding: 0px 13px 15px 0px;"></p><p style="padding: 10px 0px 0px 0px;">US Army Corps of Engineers</p><p id="map5" style="height:300px"></p></td>
+      <td><p><img src="icons/blm.png" alt="NPS logo" style="float:left;width:42px;height:42px;padding: 0px 20px 15px 0px;"></p><p style="padding: 10px 0px 0px 0px;">Bureau of Land Management</p><p id="map6" style="height:300px"></p></td>
+    </tr>
+  </table>
+</p>
+  </tbody>
+<script>
+
+//Set starting coordinates and Zooom for all maps
+var start_Coord = [37.8, -96.9]
+var start_Zoom= 2.5
+
+//Set border color
+var bord_color = 	"white"
+
+
+var map = new L.Map("map", {center: start_Coord,
+                            zoom: start_Zoom,zoomControl:false})
+    .addLayer(new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+    .addLayer(new L.geoJson(states,{
+
+        style: function (feature) {
+            return {color:"lightgrey",fillOpacity:0.2,weight:0.5};
+        }}) );
+  map.doubleClickZoom.disable();
+
+var map2 = new L.Map("map2", {center: start_Coord,
+                            zoom: start_Zoom,zoomControl:false})
+  .addLayer(new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+  .addLayer(new L.geoJson(states,{
+
+        style: function (feature) {
+            return {color:"lightgrey",fillOpacity:0.2,weight:0.5};
+        }}) );
+
+  map2.doubleClickZoom.disable();
+
+
+var map3 = new L.Map("map3", {center: start_Coord,
+                            zoom: start_Zoom,zoomControl:false})
+    .addLayer(new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+    .addLayer(new L.geoJson(states,{
+
+        style: function (feature) {
+            return {color:"lightgrey",fillOpacity:0.2,weight:0.5};
+        }}) );
+  map3.doubleClickZoom.disable();
+
+
+var map4 = new L.Map("map4", {center: start_Coord,
+                            zoom: start_Zoom,zoomControl:false})
+    .addLayer(new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+    .addLayer(new L.geoJson(states,{
+
+        style: function (feature) {
+            return {color:"lightgrey",fillOpacity:0.2,weight:0.5};
+        }}) );
+  map4.doubleClickZoom.disable();
+
+var map5 = new L.Map("map5", {center: start_Coord,
+                            zoom: start_Zoom,zoomControl:false})
+    .addLayer(new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+    .addLayer(new L.geoJson(states,{
+
+        style: function (feature) {
+            return {color:"lightgrey",fillOpacity:0.2,weight:0.5};
+        }}) );
+  map5.doubleClickZoom.disable();
+
+var map6 = new L.Map("map6", {center: start_Coord,
+                            zoom: start_Zoom,zoomControl:false})
+    .addLayer(new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+    .addLayer(new L.geoJson(states,{
+
+        style: function (feature) {
+            return {color:"lightgrey",fillOpacity:0.2,weight:0.5};
+        }}) );
+  map6.doubleClickZoom.disable();
+
+//Create States layer. Need one for each map to keep up with zoom
+
+var states = L.geoJson(states,{
+
+        style: function (feature) {
+            return {color:"lightgrey",fillOpacity:0.2,weight:0.5};
+        }});
+
+var geojsonMarkerOptions = {
+    radius: 8,
+    fillColor: "#ff7800",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+
+
+
+
+
+
+
+
+
+//Add Forest Service (fs) Layer
+
+
+var fs_layer = L.geoJson(fs_data, {
+
+        style: function (feature) {
+            return {color:bord_color,fillColor: '#006225',fillOpacity:0.2,weight:2};
+        },
+
+        onEachFeature: function (feature, layer) {
+
+             var popup_fs = L.popup({autoPan:false})
+              .setLatLng(L.latLng(50.5, 30.5)) //any LatLng will suffice, just need an entry here to workaround Leaflt bug
+            .setContent("<b>"+feature.properties.REGIONNAME+"</b>" + " ("+fsFinder(feature.properties.REGIONNAME)+")" + "<br>" + fs_FOFinder(feature.properties.REGIONNAME))
+              .openOn(map);
+
+            layer.bindPopup(popup_fs); //This line enables popups on click
+
+            layer.on('mouseover', function (e) {
+              //debug
+              //console.log(layer.feature)
+
+                //Popup
+                this.openPopup();
+
+            });
+
+            layer.on('mouseout', function (e) {
+                //Popup
+                this.closePopup()
+
+            });
+        }
+
+    });
+
+fs_layer.addTo(map);
+
+
+//add USFS office locations
+
+
+
+L.geoJSON(usfs_office_locations, {
+
+		style: function (feature) {
+			return feature.properties && feature.properties.style;
+		},
+
+
+
+		pointToLayer: function (feature, latlng) {
+			return L.circleMarker(latlng, {
+				radius: 5,
+				fillColor: "#006225",
+				color: "#006225",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			});
+		}
+	}).addTo(map);
+
+
+//Add Fish and Wildlife Service (fws) layer
+
+
+var fws_layer = L.geoJson(fws_data, {
+
+        style: function (feature) {
+            return {color:bord_color,fillColor: 'orange',fillOpacity:0.2,weight:2};
+        },
+
+         onEachFeature: function (feature, layer) {
+            var popup_fws = L.popup({autoPan:false})
+              .setLatLng(L.latLng(50.5, 30.5)) //any LatLng will suffice, just need an entry here to workaround Leaflt bug
+            .setContent("<b>"+feature.properties.REGNAME+"</b>" + " ("+"Region "+fwsFinder(feature.properties.REGNAME)+")"+"<br>"+fws_FOFinder(feature.properties.REGNAME))
+              .openOn(map2);
+
+            layer.bindPopup(popup_fws); //This line enables popups on click
+
+            layer.on('mouseover', function (e) {
+
+                this.openPopup();
+
+            });
+
+            layer.on('mouseout', function (e) {
+                this.closePopup()
+
+            });
+        }
+
+
+   });
+
+fws_layer.addTo(map2);
+
+
+//add USFWS office locations
+
+
+
+L.geoJSON(fws_office_locations, {
+
+		style: function (feature) {
+			return feature.properties && feature.properties.style;
+		},
+
+
+
+		pointToLayer: function (feature, latlng) {
+			return L.circleMarker(latlng, {
+				radius: 5,
+				fillColor: "orange",
+				color: "orange",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			});
+		}
+	}).addTo(map2);
+
+
+
+
+
+//Add Federal Lands Highway () layer
+
+
+
+
+
+//Add FLH Layer
+
+var flh_layer = L.geoJson(flh_data, {
+
+        style: function (feature) {
+            return {color:bord_color,fillColor: 'blue',fillOpacity:0.2,weight:2};
+        },
+
+        onEachFeature: function (feature, layer) {
+            var popup_flh = L.popup({autoPan:false})
+              .setLatLng(L.latLng(50.5, 30.5)) //any LatLng will suffice, just need an entry here to workaround Leaflt bug
+              .setContent("<b>"+feature.properties.Division+"</b>" + "<br>"+ flh_FOFinder(feature.properties.Division))
+              .openOn(map3);
+
+            layer.bindPopup(popup_flh); //This line enables popups on click
+
+            layer.on('mouseover', function (e) {
+                //Popup
+                //popup_flh.setLatLng(L.latLng(49.38, -66.94))
+                this.openPopup(flh_placement(feature.properties.Division)); //places popup in location inside ()
+
+            });
+
+          /*layer.on('click', function (e) {
+                //Popup
+                console.log(feature.properties.Division + e.latlng)
+        });*/
+
+            layer.on('mouseout', function (e) {
+                //Popup
+                this.closePopup()
+
+            });
+        }
+
+    });
+
+flh_layer.addTo(map3)
+
+//add FLH office locations
+
+
+
+L.geoJSON(flh_office_locations, {
+
+		style: function (feature) {
+			return feature.properties && feature.properties.style;
+		},
+
+
+
+		pointToLayer: function (feature, latlng) {
+			return L.circleMarker(latlng, {
+				radius: 5,
+				fillColor: "blue",
+				color: "blue",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			});
+		}
+	}).addTo(map3);
+
+
+//Add NPS (nps) layer
+//TODO fix placement of popup. Check out methods
+//check this out https://stackoverflow.com/questions/18980397/leaflet-update-marker-getlatlng
+
+
+
+
+var nps_layer = L.geoJson(nps_data, {
+
+        style: function (feature) {
+            return {color:bord_color,fillColor: '#C56C39',fillOpacity:0.2,weight:2};
+        },
+
+
+          onEachFeature: function (feature, layer) {
+            var popup_nps = L.popup({autoPan:false})
+              .setLatLng(L.latLng(50.5, 30.5)) //any LatLng will suffice, just need an entry here to workaround Leaflt bug
+              .setContent("<b>"+feature.properties.Region+"</b>"+"</br>"+nps_FOFinder(feature.properties.Region))
+              .openOn(map4);
+
+            layer.bindPopup(popup_nps); //This line enables popups on click
+
+            layer.on('mouseover', function (e) {
+                this.openPopup(nps_placement(feature.properties.Region)); //places popup in location inside ()
+
+            });
+
+
+            layer.on('mouseout', function (e) {
+                //Popup
+                this.closePopup()
+
+            });
+        }
+
+    });
+
+  nps_layer.addTo(map4)
+
+
+//add NPS office locations
+
+
+
+L.geoJSON(nps_office_locations, {
+
+		style: function (feature) {
+			return feature.properties && feature.properties.style;
+		},
+
+
+
+		pointToLayer: function (feature, latlng) {
+			return L.circleMarker(latlng, {
+				radius: 5,
+				fillColor: "#C56C39",
+				color: "#C56C39",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			});
+		}
+	}).addTo(map4);
+
+
+//USACE
+
+ //Determine locations for popup
+
+
+
+
+
+//Add USACE layer
+
+var usace_layer = L.geoJson(usace_data, {
+
+        style: function (feature) {
+            return {color:bord_color,fillColor: '#EE3B33',fillOpacity:0.2,weight:2};
+        },
+
+        onEachFeature: function (feature, layer) {
+
+             var popup_usace = L.popup({autoPan:false})
+              .setLatLng(L.latLng(50.5, 30.5)) //any LatLng will suffice, just need an entry here to workaround Leaflt bug
+            .setContent("<b>"+feature.properties.DIVISION+"</b>"+"<br>"+ usace_FOFinder(feature.properties.DIVISION))
+              .openOn(map5);
+
+            layer.bindPopup(popup_usace); //This line enables popups on click
+
+            layer.on('mouseover', function (e) {
+
+                //Popup
+                this.openPopup(usace_placement(feature.properties.DIVISION));
+
+            });
+
+            layer.on('mouseout', function (e) {
+                //Popup
+                this.closePopup()
+
+            });
+        }
+
+    });
+
+usace_layer.addTo(map5);
+
+//add USACE office locations
+
+
+
+L.geoJSON(usace_office_locations, {
+
+		style: function (feature) {
+			return feature.properties && feature.properties.style;
+		},
+
+
+
+		pointToLayer: function (feature, latlng) {
+			return L.circleMarker(latlng, {
+				radius: 5,
+				fillColor: "#EE3B33",
+				color: "#EE3B33",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			});
+		}
+	}).addTo(map5);
+
+
+//BLM
+
+
+
+
+
+  //Add BLM layer
+
+var blm_layer = L.geoJson(blm_data, {
+
+        style: function (feature) {
+            return {color:bord_color,fillColor: '#6FC6F4',fillOpacity:0.2,weight:2};
+        },
+
+         onEachFeature: function (feature, layer) {
+            var popup_blm = L.popup({autoPan:false})
+              .setLatLng(L.latLng(50.5, 30.5)) //any LatLng will suffice, just need an entry here to workaround Leaflt bug
+              .setContent("<b>"+feature.properties.REGION+"</b>" + "<br>" + blm_FO_Finder(feature.properties.REGION))
+              .openOn(map6);
+
+            layer.bindPopup(popup_blm); //This line enables popups on click
+
+            layer.on('mouseover', function (e) {
+                //Popup
+                this.openPopup(blm_placement(feature.properties.REGION)); //places popup in location inside ()
+
+            });
+
+
+            layer.on('mouseout', function (e) {
+                //Popup
+                this.closePopup()
+
+            });
+        }
+
+    });
+
+blm_layer.addTo(map6);
+
+//add BLM office locations
+
+
+
+L.geoJSON(blm_office_locations, {
+
+		style: function (feature) {
+			return feature.properties && feature.properties.style;
+		},
+
+
+
+		pointToLayer: function (feature, latlng) {
+			return L.circleMarker(latlng, {
+				radius: 5,
+				fillColor: "#6FC6F4",
+				color: "#6FC6F4",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			});
+		}
+	}).addTo(map6);
+
+</script>
+</body>
+</html>
